@@ -54,8 +54,6 @@ app.get('/tweets', (req, res) => {
 
     if(page && parseInt(page) > 0 ){
 
-    
-
 
         let tweetsWithAvatar = tweets.map(function(tweet){//Relaciona avatar do usuário ao tweet
             
@@ -73,6 +71,27 @@ app.get('/tweets', (req, res) => {
         res.status(400).send("Informe uma página válida!");
     }
 
+});
+
+/* Rota que lista Tweets por Usuário*/
+app.get('/tweets/:username', (req, res) => {    
+
+    const username = req.params.username;
+
+    let tweetsByUser = tweets.filter( usr => usr.username == username );//Filtra altor do tweet
+
+    let tweetsWithAvatar = tweetsByUser.map(function(tweet){//Relaciona avatar do usuário ao tweet
+        
+        let filteredUser = users.filter( usr => usr.username == tweet.username );//Filtra altor do tweet
+
+        return {
+            username: tweet.username, 
+            avatar: filteredUser[0].avatar,
+            tweet: tweet.tweet
+        };
+    });
+
+    res.send(tweetsWithAvatar.reverse());//Paginação
 });
 
 app.listen(5000, '127.0.0.1');
