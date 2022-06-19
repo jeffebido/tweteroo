@@ -19,7 +19,7 @@ app.post('/sign-up', (req, res) => {
     if( checkEmpty(req.body.username) &&  checkUrl(req.body.avatar) ){
 
         users.push(req.body);
-        res.send("OK");
+        res.status(201).send("OK");
     }else{
 
         res.status(400).send("Todos os campos são obrigatórios!");
