@@ -36,8 +36,8 @@ app.get('/tweets', (req, res) => {
             tweet: tweet.tweet
         };
      });
-
-    res.send(tweetsWithAvatar);
+    console.log(users);
+    res.send(tweetsWithAvatar.reverse().slice(0, 10));
 });
 
 app.listen(5000, '127.0.0.1');
